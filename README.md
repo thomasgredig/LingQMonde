@@ -2,6 +2,8 @@
 
 A chrome extension for importing the full text of Le Monde articles into LingQ.
 
+![screenshot](./screenshot.png)
+
 ## Background
 
 [Le Monde](lemonde.fr) is a major French daily newspaper that covers a wide variety of topics. As such, it provides a trove of material for French language learners, at a variety of literacy levels.
