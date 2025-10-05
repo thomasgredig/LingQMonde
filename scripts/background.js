@@ -2,7 +2,7 @@
 function combineLines(lines) {
     var result = "";
     for (var i = 0; i < lines.length; i++) {
-        result += lines[i] + "\n";
+        result += lines[i] + "\n\n";
     }  
     return result;
 }
@@ -21,13 +21,12 @@ async function fetchLingQCourses(sendResponse) {
                 id: course.id,
                 title: course.title,
               }));
-            
-              //console.log(simplifiedCourses);
               sendResponse(simplifiedCourses);
         });
 }
 
 async function importArticle(article, course, sendResponse) {
+
     request = {
         "collection": course,
         "title": article.title,
@@ -35,14 +34,21 @@ async function importArticle(article, course, sendResponse) {
         "text": combineLines(article.content),
         "image": article.image,
         // you MUST specify save=true in order for the lesson to be created
-        "save": true
+        "save": true,
+        "hasPrice": false, 
+        "isHidden": false,
+        "isProtected": false,
+        "language": "fr",
+        "status": "private"
     };
 
-    fetch('https://www.lingq.com/api/v2/fr/lessons/import/', {
+    // note v3 - this is required for formatting to work (ie, the newlines)
+    fetch('https://www.lingq.com/api/v3/fr/lessons/import/', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Referer': 'https://www.lingq.com/en/learn/fr/web/editor/'
         },
         body: JSON.stringify(request)
       })
