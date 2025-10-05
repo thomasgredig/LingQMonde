@@ -1,7 +1,14 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "getArticle") {
         try {
-            const title = document.querySelector("h1.article__title");
+            let titleElement = document.querySelector("h1.article__title");
+
+            if (!titleElement || !titleElement.textContent.trim()) {
+              titleElement = document.querySelector("h1.ds-title");
+            }
+
+            const title = titleElement ? titleElement.textContent.trim() : "";
+
             const description = document.querySelector("p.article__desc");
             const imageElement = document.querySelector("figure.article__media img");
             // ignore embedded images for now
