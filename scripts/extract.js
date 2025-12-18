@@ -5,15 +5,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 
             const description = document.querySelector("p.article__desc");
-            const imageElement = document.querySelector("figure.article__media img");
+            let imageElement = document.querySelector("figure.article__media img");
             // ignore embedded images for now
             if (imageElement && !imageElement.src.startsWith("http")) {
-                imageElement = null;
+              imageElement = null;
             }
 
 
-            const contentElements = Array.from(document.querySelectorAll(".article__content h2, .article__content h3, .article__content h4, .article__content p"));
-        
+
+            // const contentElements = Array.from(document.querySelectorAll(".article__content h2, .article__content h3, .article__content h4, .article__content p"));
+            const contentElements = Array.from(
+              document.querySelectorAll(
+                ".article__content h2, \
+                 .article__content h3, \
+                 .article__content h4, \
+                 .article__content p.article__paragraph, \
+                 .article__stand-first p.article__desc"
+              )
+            );
+
             const content = contentElements.map(element => {
               const tagName = element.tagName.toLowerCase();
               const textContent = element.textContent.trim();
