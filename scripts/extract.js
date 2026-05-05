@@ -100,12 +100,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       // Wait for key markers to exist (handles client-rendered pages)
       await waitForAny(
         [
-          "h1.article__title",
           "h1.ds-title",
+          ".ds-article__heading h1",
+          ".ds-article__heading .ds-title",
+          "h1.article__title",
           "article.article__content",
           "p.article__paragraph"
         ],
-        5000
+        10000
       );
 
       const titleEl = first(["h1.article__title", "h1.ds-title"]);
